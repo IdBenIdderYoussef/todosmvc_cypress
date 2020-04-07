@@ -8,7 +8,7 @@ describe('TodoMvc Test', function () {
 
     it('should add one todo', () => {
         cy.createTodos([TODO_ONE]);
-        cy.shouldExist(0, TODO_ONE);
+        cy.shouldExist(TODO_ONE);
     });
 
     it('should delete one todo', () => {
@@ -23,7 +23,7 @@ describe('TodoMvc Test', function () {
             .click();
 
         cy.get('.todo-list').contains(TODO_ONE).should('not.exist');
-        cy.shouldExist(0, TODO_TWO);
+        cy.shouldExist(TODO_TWO);
     });
 
 
@@ -37,8 +37,8 @@ describe('TodoMvc Test', function () {
 
     it('should delete completed items', function () {
         cy.createTodos([TODO_ONE, TODO_TWO, TODO_THREE]);
-        cy.toggleTodo(0);
-        cy.toggleTodo(1);
+        cy.toggleTodo(TODO_ONE);
+        cy.toggleTodo(TODO_TWO);
 
         cy.get('.clear-completed')
             .should('be.visible')
@@ -48,34 +48,32 @@ describe('TodoMvc Test', function () {
             .should('not.exist');
 
         cy.shouldHaveLength(1);
-        cy.shouldExist(0, TODO_THREE);
+        cy.shouldExist(TODO_THREE);
 
 
     });
 
     it('should display active items', function () {
         cy.createTodos([TODO_ONE, TODO_TWO, TODO_THREE]);
-        cy.toggleTodo(1);
+        cy.toggleTodo(TODO_TWO);
         cy.displayTodos('Active');
-        cy.shouldExist(0, TODO_ONE);
-        cy.shouldExist(1, TODO_THREE);
+        cy.shouldExist(TODO_ONE);
+        cy.shouldExist(TODO_THREE);
         cy.shouldHaveLength(2);
     });
 
 
     it('should display completed items', function () {
         cy.createTodos([TODO_ONE, TODO_TWO, TODO_THREE]);
-        cy.toggleTodo(1);
+        cy.toggleTodo(TODO_TWO);
         cy.displayTodos('Completed');
-        cy.shouldExist(0, TODO_TWO);
+        cy.shouldExist(TODO_TWO);
         cy.shouldHaveLength(1);
     });
 
     it('should display all items', function () {
         cy.createTodos([TODO_ONE, TODO_TWO, TODO_THREE]);
-        cy.toggleTodo(1);
-        cy.displayTodos('Active');
-        cy.displayTodos('Completed');
+        cy.toggleTodo(TODO_TWO);
         cy.displayTodos('All');
         cy.shouldHaveLength(3);
     });

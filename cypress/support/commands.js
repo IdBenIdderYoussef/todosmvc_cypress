@@ -36,13 +36,13 @@ Cypress.Commands.add('displayTodos', function (category) {
         .click();
 });
 
-Cypress.Commands.add('toggleTodo', function (index) {
+Cypress.Commands.add('toggleTodo', function (todo) {
     cy.get('.todo-list li')
-        .eq(index)
+        .contains(todo)
+        .parent()
         .find('.toggle')
         .check();
 });
-
 
 Cypress.Commands.add('shouldHaveLength', function (size) {
     cy.get('.todo-list li')
@@ -50,9 +50,8 @@ Cypress.Commands.add('shouldHaveLength', function (size) {
 });
 
 
-Cypress.Commands.add('shouldExist', function (index, todo) {
+Cypress.Commands.add('shouldExist', function (todo) {
     cy.get('.todo-list li')
-        .eq(index)
         .should('contain', todo);
 });
 
