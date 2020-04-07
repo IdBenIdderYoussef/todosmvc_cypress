@@ -24,9 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('createTodos', function (todos) {
-    todos.map(todo => cy.get('.new-todo').type(`${todo}{enter}`));
+Cypress.Commands.add('initTodosList', function (todos) {
+    todos.map(todo => cy.get('.new-todo').type(todo.concat(' {enter}')));
+    return cy.get('.todo-list li')
 });
+
+// this command check as completed all tasks received in the Array Parameter 'TasksList'
+Cypress.Commands.add("checkTasksAsCompleted",(TasksList)=>{
+    cy.wrap(TasksList).each((Task, index, ListOfTasksList)=>{
+        cy.get('.todo-list li .view>label').contains(Task).parent().find('.toggle').check();
+    })
+})
 
 Cypress.Commands.add('displayTodos', function (category) {
     cy.get('.filters')
