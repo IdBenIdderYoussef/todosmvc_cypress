@@ -24,8 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import {TODO_ONE, TODO_TWO, TODO_THREE} from '../integration/defaultTodos';
-
 Cypress.Commands.add('createTodos', function (todos) {
     todos.map(todo => cy.get('.new-todo').type(`${todo}{enter}`));
 });

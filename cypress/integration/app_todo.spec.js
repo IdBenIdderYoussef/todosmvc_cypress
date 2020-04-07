@@ -1,4 +1,6 @@
-import {TODO_ONE, TODO_TWO, TODO_THREE} from './defaultTodos'
+const TODO_ONE = 'default todo 1';
+const TODO_TWO = 'default todo 2';
+const TODO_THREE = 'default todo 3';
 
 describe('TodoMvc Test', function () {
 
@@ -49,7 +51,6 @@ describe('TodoMvc Test', function () {
 
         cy.shouldHaveLength(1);
         cy.shouldExist(TODO_THREE);
-
 
     });
 
